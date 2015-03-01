@@ -3,6 +3,7 @@ description = Adds Media field support to Adanced Poll.<p><strong>Created by <a 
 package = Voting
 version = 7.x-1.0
 core = 7.x
+dependencies[] = advpoll
 dependencies[] = advpoll_field
 dependencies[] = media
 stylesheets[all][] = advpoll_media.css

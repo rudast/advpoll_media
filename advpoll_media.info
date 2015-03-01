@@ -1,0 +1,9 @@
+name = Advanced Poll Media
+description = Adds Media field support to Adanced Poll.<p><strong>Created by <a href="http://linkedin.com/in/georgetsotsos/">Georgios Tsotsos</a> (c) 2014 for <a href="http://www.internetatmajor.com"> Internet At Major</a></strong></p>
+package = Voting
+version = 7.x-1.0
+core = 7.x
+dependencies[] = advpoll_field
+dependencies[] = media
+stylesheets[all][] = advpoll_media.css
+configure = admin/config/media/advpoll_media

@@ -7,6 +7,22 @@
  * Implements hook_menu()
  */
 
+/**
+ * Implements hook_entity_info_alter().
+ */
+function advpoll_media_entity_info_alter(&$entity_info) {
+ $entity_info['file']['view modes'] = array(
+      'poll_choice_view' => array(
+        'label' => t('Poll Choice Form'),
+        'custom settings' => TRUE,
+      ),
+      'poll_results_view' => array(
+        'label' => t('Poll Results'),
+        'custom settings' => TRUE,
+      ),
+    );
+}
+
 function advpoll_media_menu() {
   $items = array();
   $items['admin/config/media/advpoll_media'] = array(
@@ -308,7 +324,7 @@ function advpoll_media_get_choices_lang($node) {
  */
 
 function advpoll_media_load($choice_id) {
-  return db_select('advpoll_choice_image', 'aci')->fields('aci', array(
+  return db_select('advpoll_choice_media', 'aci')->fields('aci', array(
     'fid'
   ))->condition('choice_id', $choice_id)->execute()->fetchField();
 }
@@ -326,7 +342,7 @@ function advpoll_media_choice_text($choice_id) {
  */
 
 function advpoll_media_load_multiple($choice_ids) {
-  return db_select('advpoll_choice_image', 'aci')->fields('aci', array(
+  return db_select('advpoll_choice_media', 'aci')->fields('aci', array(
     'choice_id',
     'fid'
   ))->condition('choice_id', $choice_ids, 'IN')->execute()->fetchAllKeyed();
@@ -344,7 +360,7 @@ function advpoll_media_delete($choice_id) {
     file_usage_delete($file, 'advpoll_media');
     file_delete($file);
     // Delete relation
-    db_delete('advpoll_choice_image')->condition('choice_id', $choice_id)->execute();
+    db_delete('advpoll_choice_media')->condition('choice_id', $choice_id)->execute();
   }
 }
 /**
@@ -356,7 +372,7 @@ function advpoll_media_add($nid, $choice_id, $image) {
   if (!$image || !$choice_id) {
     return FALSE;
   }
-  db_insert('advpoll_choice_image')->fields(array(
+  db_insert('advpoll_choice_media')->fields(array(
     'choice_id' => $choice_id,
     'fid' => $image,
   ))->execute();

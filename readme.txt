@@ -31,3 +31,26 @@ when the results are viewed (Poll Results). To configure those view modes go to 
 
  *Administration » Structure » File types » (The desired file type) » Manage file display
  and choose your settings for each view mode.
+ 
+TROUBLESHOOTING
+---------------
+
+FAQ
+---
+
+
+Q: Can i override the module's templates?
+
+
+A: Yes, this is possible, just copy them from module's template folder into your theme folder.
+
+MAINTAINERS
+-----------
+Current maintainers:
+ * Georgios Tsotsos (tsotsos) - https://drupal.org/u/tsotsos
+
+
+This project has been sponsored by:
+ * Internet At Major
+   Web Development company from Greece specialized in Drupal sites and customizations. 
+   see more @ http://www.internetatmajor.com

@@ -24,7 +24,7 @@ INSTALLATION
 
 CONFIGURATION
 -------------
-The only configurationt this project needs is to choose what you want to see when
+The only configuration this project needs is to choose what you want to see when
 a file view is enabled. This module provides two entity view modes for files. 
 One is used to render the file in poll choice form (Poll Choice Form) and the other
 when the results are viewed (Poll Results). To configure those view modes go to : 

@@ -15,7 +15,6 @@
  */
 ?>
 <div class="poll" id="advpoll-<?php print $nid; ?>">
-<?php debug($nid); ?>
     <?php print $bars; ?>
     <div class="total"><?php print t('Total votes: @total', array('@total' => $total)); ?></div>
 

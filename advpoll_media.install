@@ -1,4 +1,9 @@
 <?php
+/* 
+ * @file
+ * Advanced Poll media installation
+ */
+ 
 /**
  * Implements hook_schema().
  */

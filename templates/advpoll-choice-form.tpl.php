@@ -1,11 +1,7 @@
 <?php
-
 /**
  * @file
  * Theme implementation to display advpoll choice form with image fields.
- *
- * - TODO: $nid: The nid of the advpoll. Needs to be set in form.
- * - TODO: $title: The title of the advpoll. Needs to be set in form (or grabbed from nid in preprocess).
  * - $choices: The radio buttons or checkboxes for the choices in the advpoll.
  * - $media: The file view output. View mode: Polls choice form
  * - $write_in: The write-in field, if it is set.
@@ -20,7 +16,6 @@
  * @ingroup themeable
  */
 ?>
-
 <div class="poll advpoll">
   <div class="advpoll-choice-form advpoll-field-image-choice-form">
 

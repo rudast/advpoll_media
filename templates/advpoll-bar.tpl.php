@@ -9,14 +9,13 @@
  * - $percentage: The percentage of votes for this choice.
  * - $vote: The choice number of the current user's vote.
  * - $voted: Set to TRUE if the user voted for this choice.
- * - $image_placeholder: This is a hash value that will be replaced by the image corresponding to this choice.
+ * - $media: rendered media field
  *   The actual images can be themed via theme_advpoll_field_image_image().
  *
  * @see
  * - advpoll-bar.tpl.php provided by advpoll module.
- * - theme_advpoll_field_image_image().
+ * - theme_advpoll_media().
  */
-
 // add extra class to wrapper so that user's selected vote can have a different style.
 $voted_class = '';
 if ($voted) {
@@ -24,7 +23,7 @@ if ($voted) {
 }
 ?>
 <div class="poll-bar<?php print $voted_class; ?>">
-  <div class="image choice-image"><?php print $image_placeholder; ?></div>
+  <?php print $media; ?>
   <div class="text"><?php print $title; ?></div>
   <div class="bar">
     <div style="width: <?php print $percentage; ?>%;" class="foreground"></div>

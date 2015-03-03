@@ -12,6 +12,11 @@ function advpoll_media_schema() {
         'length' => 10,
         'not null' => TRUE,
       ),
+      'choice_text' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ),
       'fid' => array(
         'type' => 'int',
         'not null' => TRUE,

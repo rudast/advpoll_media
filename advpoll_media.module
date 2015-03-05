@@ -108,17 +108,12 @@ function advpoll_media_theme($existing, $type, $theme, $path) {
  */
 
 function theme_advpoll_media($variables) {
-  $fid = $variables['fid'];
   
-  if (isset($variables['choice_text'])) {
-    $choice_text = $variables['choice_text'];
-  }
-  $file = file_load($fid);
-  
-  if (!$fid) {
+  if (!$variables['fid']) {
     return '';
   }
   else {
+    $file = file_load($variables['fid']);
     $view = file_view_file($file, $variables['view']);
     return render($view);
   }
@@ -169,6 +164,7 @@ function advpoll_media_choices_save($node) {
     }
   }
   // Delete files, that existed in the old node, but do not exist in the new node
+  
   foreach ($old as $choice_id => $file) {
     
     if (!isset($new[$choice_id])) {
@@ -178,10 +174,12 @@ function advpoll_media_choices_save($node) {
   
   foreach ($new as $choice_id => $file) {
     // Delete files, that has changed in the new node
+    
     if (isset($old[$choice_id]) && $old[$choice_id] != $file) {
       advpoll_media_delete($choice_id);
     }
     // Add files, which were not in the old node
+    
     if (!isset($old[$choice_id])) {
       advpoll_media_add($node->nid, $choice_id, $file);
     }
@@ -221,7 +219,8 @@ function advpoll_media_field_attach_load($entity_type, $entities, $age, $options
         }
       }
     }
-    // Add data to nodes  
+    // Add data to nodes
+    
     if ($choice_ids) {
       $images = advpoll_media_load_multiple($choice_ids);
       
@@ -268,7 +267,6 @@ function advpoll_media_choice_text($choice_id) {
     'advpoll_choice_choice'
   ))->condition('advpoll_choice_choice_id', $choice_id)->execute()->fetchField();
 }
-
 /**
  * Retrieves the fid for the corresponding choice text
  */
@@ -327,7 +325,9 @@ function advpoll_media_add($nid, $choice_id, $media) {
 
 function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $form_id) {
   // Add choice images to form, designed to be accessed and themed at the template level.
+  
   // Image keys correspond to choice keys.
+  
   // Get images for this poll
   $node = $form_state['build_info']['args'][0];
   $lang = advpoll_media_get_choices_lang($node);
@@ -345,6 +345,7 @@ function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $for
     return;
   }
   // Alter form
+  
   foreach (element_children($form) as $key) {
     
     if ($form[$key]['#type'] == 'radios' || $form[$key]['#type'] == 'checkboxes') {
@@ -354,10 +355,9 @@ function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $for
         if (isset($media[$option_value])) {
           
           if ($option_value != 'write-in') {
-            $form['media'][$option_value]['#markup'] = theme_advpoll_media(array(
+            $form['media'][$option_value]['#markup'] = theme('advpoll_media', array(
               'fid' => $media[$option_value],
-              'choice_text' => $option_text,
-              'view' => 'poll_choice_view'
+              'view' => 'poll_results_view'
             ));
           }
         }
@@ -377,6 +377,7 @@ function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $for
 function template_preprocess_advpoll_choice_form(&$variables) {
   $hidden = array();
   // Provide variables named after form keys so themers can print each element independently.
+  
   foreach (element_children($variables['form']) as $key) {
     $type = isset($variables['form'][$key]['#type']) ? $variables['form'][$key]['#type'] : '';
     $new_key = $key;
@@ -407,9 +408,8 @@ function template_preprocess_advpoll_choice_form(&$variables) {
 
 function advpoll_media_preprocess_advpoll_bar(&$vars) {
   $fid = advpoll_media_choice_fid($vars['title']);
-  $vars['media'] = theme_advpoll_media(array(
+  $vars['media'] = theme('advpoll_media', array(
     'fid' => $fid,
-    'choice_text' => $vars['title'],
     'view' => 'poll_results_view'
   ));
 }

@@ -68,7 +68,6 @@ function advpoll_media_theme($existing, $type, $theme, $path) {
       ) ,
     ) ,
     // Override / Add suggestion for advpoll choice form template
-    
     // TODO: is this the best way?
     'advpoll_choice_form' => array(
       'render element' => 'form',
@@ -76,7 +75,6 @@ function advpoll_media_theme($existing, $type, $theme, $path) {
       'template' => 'advpoll-choice-form',
     ) ,
     // Override / Add suggestion for advpoll bar template
-    
     // TODO: is this the best way?
     'advpoll_bar' => array(
       'variables' => array(
@@ -325,9 +323,7 @@ function advpoll_media_add($nid, $choice_id, $media) {
 
 function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $form_id) {
   // Add choice images to form, designed to be accessed and themed at the template level.
-  
   // Image keys correspond to choice keys.
-  
   // Get images for this poll
   $node = $form_state['build_info']['args'][0];
   $lang = advpoll_media_get_choices_lang($node);

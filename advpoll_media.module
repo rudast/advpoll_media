@@ -1,31 +1,30 @@
 <?php
 /* @file
  * advpoll_media.module
- * 
+ *
  * Contains the main functions of Advanced Poll Media module
- * 
+ *
  * Based on : http://www.drupal.org/sandbox/xandeadx/1871070
- * 
+ *
  * Copyright 2015 Georgios Tsotsos <tsotsos@gmail.com>
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
- * 
- * 
- */
- 
+ *
+ *
+*/
 /**
  * Implements hook_entity_info_alter().
  */
@@ -110,7 +109,10 @@ function advpoll_media_theme($existing, $type, $theme, $path) {
 
 function theme_advpoll_media($variables) {
   $fid = $variables['fid'];
-  $choice_text = isset($variables['choice_text']) ? $variables['choice_text'] : '';
+  
+  if (isset($variables['choice_text'])) {
+    $choice_text = $variables['choice_text'];
+  }
   $file = file_load($fid);
   
   if (!$fid) {
@@ -167,7 +169,6 @@ function advpoll_media_choices_save($node) {
     }
   }
   // Delete files, that existed in the old node, but do not exist in the new node
-  
   foreach ($old as $choice_id => $file) {
     
     if (!isset($new[$choice_id])) {
@@ -177,12 +178,10 @@ function advpoll_media_choices_save($node) {
   
   foreach ($new as $choice_id => $file) {
     // Delete files, that has changed in the new node
-    
     if (isset($old[$choice_id]) && $old[$choice_id] != $file) {
       advpoll_media_delete($choice_id);
     }
     // Add files, which were not in the old node
-    
     if (!isset($old[$choice_id])) {
       advpoll_media_add($node->nid, $choice_id, $file);
     }
@@ -222,8 +221,7 @@ function advpoll_media_field_attach_load($entity_type, $entities, $age, $options
         }
       }
     }
-    // Add data to nodes
-    
+    // Add data to nodes  
     if ($choice_ids) {
       $images = advpoll_media_load_multiple($choice_ids);
       
@@ -270,9 +268,7 @@ function advpoll_media_choice_text($choice_id) {
     'advpoll_choice_choice'
   ))->condition('advpoll_choice_choice_id', $choice_id)->execute()->fetchField();
 }
-/**
- * Return images by choice ids
- */
+
 /**
  * Retrieves the fid for the corresponding choice text
  */
@@ -331,9 +327,7 @@ function advpoll_media_add($nid, $choice_id, $media) {
 
 function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $form_id) {
   // Add choice images to form, designed to be accessed and themed at the template level.
-  
   // Image keys correspond to choice keys.
-  
   // Get images for this poll
   $node = $form_state['build_info']['args'][0];
   $lang = advpoll_media_get_choices_lang($node);
@@ -351,7 +345,6 @@ function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $for
     return;
   }
   // Alter form
-  
   foreach (element_children($form) as $key) {
     
     if ($form[$key]['#type'] == 'radios' || $form[$key]['#type'] == 'checkboxes') {
@@ -384,7 +377,6 @@ function advpoll_media_form_advpoll_choice_form_alter(&$form, &$form_state, $for
 function template_preprocess_advpoll_choice_form(&$variables) {
   $hidden = array();
   // Provide variables named after form keys so themers can print each element independently.
-  
   foreach (element_children($variables['form']) as $key) {
     $type = isset($variables['form'][$key]['#type']) ? $variables['form'][$key]['#type'] : '';
     $new_key = $key;

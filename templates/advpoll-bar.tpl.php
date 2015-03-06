@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Default template for an advanced poll bar - based on default Drupal Poll template.
+ * Default template for an advanced poll bar.
  *
  * Variables available:
  * - $title: The title of the poll.
@@ -16,11 +17,10 @@
  * - advpoll-bar.tpl.php provided by advpoll module.
  * - theme_advpoll_media().
  */
-// add extra class to wrapper so that user's selected vote can have a different style.
 $voted_class = '';
-if ($voted) {
-    $voted_class = ' voted';
-}
+if ($voted):
+  $voted_class = ' voted';
+endif;
 ?>
 <div class="poll-bar<?php print $voted_class; ?>">
   <?php print $media; ?>

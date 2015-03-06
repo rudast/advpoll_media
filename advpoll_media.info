@@ -5,5 +5,4 @@ core = 7.x
 dependencies[] = advpoll
 dependencies[] = advpoll_field
 dependencies[] = media
-stylesheets[all][] = advpoll_media.css
-configure = admin/config/media/advpoll_media
+

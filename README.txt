@@ -57,4 +57,3 @@ This project has been sponsored by:
  * Internet At Major
    Web Development company from Greece specialized in Drupal sites and
    customizations. See more @ http://www.internetatmajor.com
-

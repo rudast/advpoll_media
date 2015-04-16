@@ -383,9 +383,3 @@ function advpoll_media_preprocess_advpoll_bar(&$vars) {
       'view' => 'poll_results_view',
     ));
 }
-
-/**
- * Preprocess function for advpoll-results.tpl.php.
- */
-function advpoll_media_preprocess_advpoll_results(&$vars) {
-}

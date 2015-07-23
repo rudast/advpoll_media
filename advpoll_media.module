@@ -85,6 +85,11 @@ function advpoll_media_theme($existing, $type, $theme, $path) {
 
 /**
  * Return image html.
+ * 
+ * @param variables
+ *  theme variables
+ *
+ * @return file view (rendered)
  */
 function theme_advpoll_media($variables) {
 
@@ -119,7 +124,9 @@ function advpoll_media_node_insert($node) {
 }
 
 /**
- * Save choices media file.
+ * Saves choices media file.
+ * @param $node
+ *  the node object
  */
 function advpoll_media_choices_save($node) {
   $lang = advpoll_media_get_choices_lang($node);
@@ -215,6 +222,11 @@ function advpoll_media_field_attach_load($entity_type, $entities, $age, $options
 
 /**
  * Return choices language.
+ * 
+ * @param $node
+ *  Node object
+ * 
+ * @return language code
  */
 function advpoll_media_get_choices_lang($node) {
   $lang = $node->language;
@@ -236,6 +248,12 @@ function advpoll_media_load($choice_id) {
 
 /**
  * Return the text of choice id.
+ * 
+ * @param $choice_id
+ *  The id of current choice
+ * 
+ * @return array of aci results
+ * 
  */
 function advpoll_media_choice_text($choice_id) {
   return db_select('field_data_advpoll_choice', 'aci')->fields('aci', array(
@@ -245,6 +263,11 @@ function advpoll_media_choice_text($choice_id) {
 
 /**
  * Retrieves the fid for the corresponding choice text.
+ * 
+ * @param $text
+ *  string with vote label
+ *
+ * @return file id
  */
 function advpoll_media_choice_fid($text) {
   return db_select('advpoll_choice_media', 'fid')->fields('fid', array(
@@ -254,6 +277,10 @@ function advpoll_media_choice_fid($text) {
 
 /**
  * Retrieves multiple fids from database.
+ * 
+ * @param $choice_ids
+ *  choice ids
+ * @return array of database records
  */
 function advpoll_media_load_multiple($choice_ids) {
   return db_select('advpoll_choice_media', 'aci')->fields('aci', array(
@@ -264,6 +291,9 @@ function advpoll_media_load_multiple($choice_ids) {
 
 /**
  * Delete image file and relation by choice id.
+ * 
+ * @param $choice_id
+ *  The choice's id
  */
 function advpoll_media_delete($choice_id) {
   $image = advpoll_media_load($choice_id);
@@ -280,6 +310,15 @@ function advpoll_media_delete($choice_id) {
 
 /**
  * Change file status and add relation.
+ * 
+ * @param $nid
+ *  Node id
+ * 
+ * @param $choice_id
+ *  The choice's id
+ * 
+ * @param $media
+ *  media id (file id)
  */
 function advpoll_media_add($nid, $choice_id, $media) {
 
